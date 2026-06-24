@@ -1,6 +1,6 @@
 import {getTitlePrefix, PageMenuNode, searchCurPageHeader, generateMenuHTML, menu_page} from "@LISS/components/page/menu/";
 
-function buildPageMenu(parent: PageMenuNode|null = null) {
+function buildPageMenu(_parent: PageMenuNode|null = null) {
     
     const h1 = document.querySelector('h1')!; // osef (hidden)
 

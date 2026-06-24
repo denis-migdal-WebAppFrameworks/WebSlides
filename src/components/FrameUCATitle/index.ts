@@ -1,8 +1,10 @@
 import {LISS, define} from "@LISS/libs/LISS"
 
-const plain_css = require("!!raw-loader!../FrameUCAPlain/index.css").default;
-const css  = require("!!raw-loader!./index.css" ).default;
-const html = require("!!raw-loader!./index.html").default;
+
+const plain_css = __LOAD_FILE__("../FrameUCAPlain/index.css");
+const css = __LOAD_FILE__("./index.css");
+
+const html = __LOAD_FILE__("./index.html");
 
 // attributes: ["caption", "subcaption", "author", "mail"]
 
