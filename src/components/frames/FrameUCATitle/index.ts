@@ -24,7 +24,7 @@ const FrameUCATitle = defineWebComponent(null, {
         ctx.elements.subtitle.textContent = ctx.target.getAttribute("subtitle");
         ctx.elements.author.textContent = ctx.target.getAttribute("author");
         ctx.elements.mail  .textContent = ctx.target.getAttribute("mail");
-        ctx.elements.date  .textContent = `(dernière modification le ${modifDate})`;
+        ctx.elements.date  .textContent = `Dernière modification le ${modifDate}.`;
     }
 });
 
