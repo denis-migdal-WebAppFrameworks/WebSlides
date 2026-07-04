@@ -20,8 +20,8 @@ const FrameUCATitle = defineWebComponent(null, {
         const modifDate = new Date(document.lastModified).toLocaleDateString('fr-FR', { year:"numeric", month:"long", day:"numeric", hour:"2-digit", minute: "2-digit"});
 
         // we use standard attr attributes.
-        ctx.elements.title.textContent    = ctx.target.getAttribute("caption");
-        ctx.elements.subtitle.textContent = ctx.target.getAttribute("subcaption");
+        ctx.elements.title.textContent    = ctx.target.getAttribute("title");
+        ctx.elements.subtitle.textContent = ctx.target.getAttribute("subtitle");
         ctx.elements.author.textContent = ctx.target.getAttribute("author");
         ctx.elements.mail  .textContent = ctx.target.getAttribute("mail");
         ctx.elements.date  .textContent = `(dernière modification le ${modifDate})`;

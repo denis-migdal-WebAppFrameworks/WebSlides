@@ -23,6 +23,7 @@ const FrameUCA = defineWebComponent(null, {
 
         // required to be recognized as a slide...
         ctx.target.classList.add("ws-frame");
+        
         setCaption(ctx.target, ctx.root);
 
         // "onslide" animations.
