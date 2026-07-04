@@ -1,0 +1,29 @@
+:host {
+    
+    & > .title {
+        & > [data-wcid="title"] {
+            color: var(--uca_green);
+            text-align: center;
+        }
+        & > [data-wcid="subtitle"] {
+            color: var(--uca_green);
+            text-align: center;
+            font-style: italic;
+            margin-top: 0;
+        }
+    }
+
+    & [data-wcid="date"] {
+        font-size: small;
+        font-style: italic;
+    }
+
+    & > div {
+        text-align: center;
+        color: var(--uca_gray);
+
+        & > [data-wcid="mail"] {
+            font-style: italic;
+        }
+    }
+}

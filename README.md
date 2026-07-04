@@ -9,3 +9,6 @@
 - `npm run build`
 - `npm run build-prod`
 - `npm run watch`
+
+
+Overview mode: `?overview=$nb_page`.

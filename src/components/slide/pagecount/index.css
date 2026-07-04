@@ -1,0 +1,15 @@
+main {
+    counter-reset: page_id;
+}
+
+main .ws-frame {
+    position: relative;
+
+    &::after {
+        position: absolute;
+        bottom: 0;
+        right: 5px;
+        counter-increment: page_id;
+        content: counter(page_id);
+    }
+}

@@ -1,0 +1,35 @@
+p {
+    margin: 0;
+}
+
+u {
+    text-decoration: underline 1px solid light-dark(black, white);
+}
+
+ul + p {
+    margin-top: 2rem;
+}
+
+li > ul {
+    margin-top: 0;
+}
+
+ol {
+    margin: 0em 10px;
+    padding: 0 1em;
+}
+
+ul {
+    margin: 0em 10px;
+    padding: 0 1em;
+    list-style: "▶ ";
+
+    * + & {
+        margin-top: 4px;
+    }
+
+    & > li::marker {
+        color: blue;
+        font-size: 0.8em;
+    }
+}

@@ -1,0 +1,5 @@
+@media print {
+    main > section {
+        border: 1px solid white;
+    }
+}

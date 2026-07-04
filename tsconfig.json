@@ -1,27 +1,16 @@
 {
-    "include": ["src"],
-    "exclude": ["src/tests"],
-    "compilerOptions": {
-        "outDir": "./build/TS",
-        "paths": {
-            "@LISS/*"     : ["./libs/LISS/V3/*"],
-            "@WebSlides/*": ["./src/*"],
-        },
-        "sourceMap": true,
-        "alwaysStrict": true,
-        "strict": true,
-        "noErrorTruncation": true,
-        "exactOptionalPropertyTypes": true,
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitOverride": true,
-        "noImplicitReturns": true,
-        "allowSyntheticDefaultImports": true,
+    "extends": "./build/WebpackFramework/files/tsconfig.json",
 
-        "module": "esnext",
-        "target": "esnext",
-        "allowJs": true,
-        "resolveJsonModule": true,
-        "moduleResolution": "node",
-        "incremental": true,
+    "include": ["./src"],
+
+    "compilerOptions": {
+
+        "rootDir": ".",
+        "outDir": "./build/TS",
+
+        "paths": {
+            "MWL@2026:*"     : ["./libs/MWL@2026/src/*"],
+            "WebSlides@2026:*": ["./src/*"],
+        }
     }
 }

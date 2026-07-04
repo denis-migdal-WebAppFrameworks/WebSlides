@@ -1,0 +1,30 @@
+:root {
+    /*size: A5 landscape;*/
+    /*  148mm x 210mm */
+    /* size: 595px 420px // A5 landscape */
+    --slide_height: 420px;
+    --slide_width: calc( var(--slide_height) * 16 / 9 );
+    --webslide_background: none;
+}
+
+@page {
+    size: 747px 420px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    print-color-adjust:exact;
+    background-color: light-dark(#AAA, #111);
+    position: relative;
+
+    & main {
+        position: absolute;
+    }
+
+    &:not(.overview) main {
+        overflow: hidden;
+        width: var(--slide_width);
+        top: 0;
+    }
+}

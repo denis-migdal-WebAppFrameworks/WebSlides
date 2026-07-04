@@ -1,0 +1,22 @@
+@import "MWL@2026:Components/page/menu";
+
+body {
+    margin-top: 0 !important; /* by default menu set it ? */
+    counter-reset: h1 h2 h3;
+}
+
+body.overview .menu_area {
+    display: none;
+}
+
+@media (display-mode: fullscreen) {
+    .menu_area, .color-scheme-gui-btn {
+        display: none;
+    }
+}
+
+@media screen and not (display-mode: fullscreen) {
+    body:not(.overview) main {
+        top : calc( 50% + 17px ) !important; /* 50% de 24px */
+    }
+}

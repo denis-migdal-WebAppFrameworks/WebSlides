@@ -1,0 +1,15 @@
+@import "WebSlides@2026:components/slide/layout/base.css";
+@import "WebSlides@2026:components/slide/layout/screen.css";
+@import "WebSlides@2026:components/slide/layout/print.css";
+
+@import "WebSlides@2026:components/slide/theme/reset.css";
+@import "WebSlides@2026:components/slide/theme/font.css";
+@import "WebSlides@2026:components/slide/theme/frame.css";
+
+@import "WebSlides@2026:components/slide/menu";
+
+@import "WebSlides@2026:components/slide/overview";
+@import "WebSlides@2026:components/slide/pagecount";
+
+@import "MWL@2026:Components/page/menu";
+@import "MWL@2026:Components/page/color-switch";
