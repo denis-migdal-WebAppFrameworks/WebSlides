@@ -2,16 +2,8 @@
 # Helpers (cf MWL...)
 ###
 
-.hidden {
-    display: none;
-}
 .invisible {
     visibility: hidden;
-}
-
-.center {
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .overlay {
@@ -21,10 +13,6 @@
     & > * {
         grid-area: 1 / 1;
     }
-}
-
-div.center {
-    width: fit-content;
 }
 
 li[mark="🕮"]::marker {
@@ -41,38 +29,6 @@ li[mark="💡"]::marker {
 
     &.invisible {
         display: none;
-    }
-}
-
-.flex {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-}
-.flex-2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4px;
-}
-.flex-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
-}
-.flex-4 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
-}
-
-img {
-    width: 100%;
-
-    &[src$=".svg"] {
-        width:60%;
-        background-color:white;
-        border-radius:5px;
-        padding:5px
     }
 }
 
