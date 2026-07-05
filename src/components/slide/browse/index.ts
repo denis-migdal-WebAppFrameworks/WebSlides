@@ -1,30 +1,51 @@
 // change slide
 
+import { getProperties } from "MWL@2026:Reactive/Properties/createProperties";
+
 //TODO: move somewhere...
 interface AnimationNode {
-    readonly stepIndex: number;
+    stepIndex: number;
     readonly stepCount: number;
-    setStep(step: number): void;
 }
 
 function prev(target: AnimationNode) {
     if( target.stepIndex === 0 )
         return;
-    target.setStep( target.stepIndex-1 );
+    --target.stepIndex;
 }
 function next(target: AnimationNode) {
     if( target.stepIndex >= target.stepCount - 1 )
         return;
-    target.setStep( target.stepIndex+1 );
+    ++target.stepIndex;
 }
 
-// TODO: setPage...
+function getStepCount(target: {}) {
+
+    if( "properties" in target && target.properties !== null)
+        target = target.properties as {};
+    if( "stepCount" in target)
+        return target.stepCount as number;
+
+    return 1;
+}
+function setStepIndex(target: {}, index: number) {
+    
+    if( "properties" in target && target.properties !== null)
+        target = target.properties as {};
+    if( "stepCount" in target) {
+        target.stepCount = index;
+        return;
+    }
+
+    return;
+}
+
 class Frames implements AnimationNode {
 
     readonly frames       : readonly HTMLElement[];
     readonly framesEndSteps: number[];
 
-    stepIndex: number = 0;
+    protected _stepIndex: number = 0;
     readonly stepCount: number;
 
     constructor(target: HTMLElement) {
@@ -33,25 +54,35 @@ class Frames implements AnimationNode {
         this.framesEndSteps = new Array(this.frames.length);
         let cur = 0;
         for(let i = 0; i < this.frames.length; ++i) {
-            //TODO...
-            // @ts-ignore
-            cur += this.frames[i].toto ?? 1;
+            cur += getStepCount(this.frames[i]);
             this.framesEndSteps[i] = cur;
         }
 
         this.stepCount = cur;
     }
 
-    setStep(step: number): void {
+    get stepIndex() {
+        return this._stepIndex;
+    }
+
+    set stepIndex(step: number) {
 
         const frameID = this.framesEndSteps.findIndex( endStep => step < endStep);
 
-        // avoid : offsetTop doesn't work with subpixels, produces jitters.
-        this.frames[frameID].scrollIntoView({behavior: "instant"});
+        console.warn(step, frameID);
 
-        //TODO: set frame step...
+        const frame = this.frames[frameID];
 
-        this.stepIndex = step;
+        let offset = 0;
+        if( frameID !== 0)
+            offset = this.framesEndSteps[frameID-1];
+
+        setStepIndex(frame, step - offset);
+
+        // avoid offsetTop: it doesn't work with subpixels, produces jitters.
+        frame.scrollIntoView({behavior: "instant"});
+
+        this._stepIndex = step;
     }
 
     updateCurrentStep() {
@@ -62,14 +93,10 @@ class Frames implements AnimationNode {
         while( cur != this.frames.length - 1 && pos >= this.frames[cur].offsetTop)
             ++cur;
 
-        console.warn(cur);
-
         if( cur !== 0 )
             cur = this.framesEndSteps[cur-1];
 
-        console.warn("end", cur);
-
-        this.setStep(cur);
+        this.stepIndex = cur;
     }
 }
 
@@ -78,8 +105,9 @@ const frames = new Frames(document.body);
 // restore scroll immediately.
 history.scrollRestoration = "manual";
 document.getElementById(location.hash.slice(1))
-        ?.scrollIntoView({ behavior: "smooth" });
-frames.updateCurrentStep();
+        ?.scrollIntoView({ behavior: "instant" });
+
+requestAnimationFrame( () => frames.updateCurrentStep() );
 
 window.addEventListener("hashchange", () => {
     frames.updateCurrentStep();
