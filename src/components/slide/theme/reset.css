@@ -33,10 +33,3 @@ ul {
         font-size: 0.8em;
     }
 }
-
-img[src$=".svg"] {
-    width:60%;
-    background-color:white;
-    border-radius:5px;
-    padding:5px
-}
