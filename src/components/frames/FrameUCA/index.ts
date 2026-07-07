@@ -1,7 +1,8 @@
 import defineWebComponent from "MWL@2026:DOM/WebComponent/defineWebComponent";
 import { Fixed } from "MWL@2026:Reactive/Properties/Controllers";
 import { WithProperties } from "MWL@2026:Reactive/Properties/createProperties";
-import {observeChanges} from "MWL@2026:Reactive/Observers/observe";
+import {observe} from "MWL@2026:Reactive/Observers/observe";
+import deferredCallback from "MWL@2026:DOM/FrameScheduler/deferredCallback";
 
 export function setCaption(target: HTMLElement, content: ShadowRoot|HTMLElement) {
 
@@ -16,7 +17,7 @@ export function setCaption(target: HTMLElement, content: ShadowRoot|HTMLElement)
 
 class VisibilityController {
 
-    constructor(target: ShadowRoot|HTMLElement) {
+    constructor(_target: ShadowRoot|HTMLElement) {
         //TODO...
     }
 
@@ -29,7 +30,7 @@ class VisibilityController {
     }
 }
 
-class Ctrler extends WithProperties({
+class Controller extends WithProperties({
                                         stepCount: Fixed<number>(1),
                                         stepIndex: Fixed<number>(0)
                                     }) {
@@ -38,37 +39,36 @@ class Ctrler extends WithProperties({
     }
 }
 
-const FrameUCA = defineWebComponent(
-    function () {
-
-        const visibilityCtrler = new VisibilityController(this);
-        const ctrler = new Ctrler(visibilityCtrler.stepCount);
-
-        // we have no choice but to perform the link here ?
-
-        return ctrler;
-    }, {
+const FrameUCA = defineWebComponent({
     name   : "frame-uca",
     content: __LOAD_FILE__("./index.html"),
     style  : [
                 __LOAD_FILE__("../FrameUCAPlain/index.css"),
                 __LOAD_FILE__("./index.css")
             ],
-    initialize: (ctx, ctrler, renderer) => {
+    initialize() {
+
+        const controller = new Controller(1);
+
+        // => create Controller here ???
 
         // required to be recognized as a slide...
-        ctx.target.classList.add("ws-frame");
-        
-        setCaption(ctx.target, ctx.root);
+        this.target.classList.add("ws-frame");
 
+        // extract things (?).
+        // lock property (?).
         
+        setCaption(this.target, this.root);
 
         // only one prop to observe...
-        observeChanges(ctrler, () => {
-            console.warn("idx", ctrler.properties.stepIndex);
-        });
+        observe(controller, deferredCallback(this.renderer, () => {
 
-        //TODO: "onslide" animations.
+            // for all X => toggle...
+            console.warn("idx", controller.properties.stepIndex);
+            //TODO: "onslide" animations.
+        }));
+
+        return controller;
     }
 });
 

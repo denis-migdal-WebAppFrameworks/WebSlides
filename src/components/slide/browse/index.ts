@@ -1,7 +1,5 @@
 // change slide
 
-import { getProperties } from "MWL@2026:Reactive/Properties/createProperties";
-
 //TODO: move somewhere...
 interface AnimationNode {
     stepIndex: number;
