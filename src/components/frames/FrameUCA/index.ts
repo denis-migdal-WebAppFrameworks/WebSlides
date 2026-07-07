@@ -64,7 +64,7 @@ const FrameUCA = defineWebComponent({
         observe(controller, deferredCallback(this.renderer, () => {
 
             // for all X => toggle...
-            console.warn("idx", controller.properties.stepIndex);
+            //console.warn("idx", controller.properties.stepIndex);
             //TODO: "onslide" animations.
         }));
 

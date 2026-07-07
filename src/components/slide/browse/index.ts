@@ -17,19 +17,29 @@ function next(target: AnimationNode) {
     ++target.stepIndex;
 }
 
-function getStepCount(target: {}) {
+function getProperties(target: object) {
 
-    if( "properties" in target && target.properties !== null)
-        target = target.properties as {};
+    // @ts-ignore
+    if( target.properties !== undefined)
+        // @ts-ignore
+        return target.properties;
+
+    return target;
+}
+
+function getStepCount(target: object) {
+
+    target = getProperties(target);
+
     if( "stepCount" in target)
         return target.stepCount as number;
 
     return 1;
 }
-function setStepIndex(target: {}, index: number) {
+function setStepIndex(target: object, index: number) {
     
-    if( "properties" in target && target.properties !== null)
-        target = target.properties as {};
+    target = getProperties(target);
+    
     if( "stepCount" in target) {
         target.stepCount = index;
         return;
@@ -75,6 +85,8 @@ class Frames implements AnimationNode {
         if( frameID !== 0)
             offset = this.framesEndSteps[frameID-1];
 
+        console.warn("step idx", frameID);
+
         setStepIndex(frame, step - offset);
 
         // avoid offsetTop: it doesn't work with subpixels, produces jitters.
@@ -102,10 +114,13 @@ const frames = new Frames(document.body);
 
 // restore scroll immediately.
 history.scrollRestoration = "manual";
-document.getElementById(location.hash.slice(1))
-        ?.scrollIntoView({ behavior: "instant" });
+const hash = location.hash.slice(1);
+if( hash !== "") {
+    document.getElementById(hash)
+            ?.scrollIntoView({ behavior: "instant" });
 
-requestAnimationFrame( () => frames.updateCurrentStep() );
+    requestAnimationFrame( () => frames.updateCurrentStep() );
+}
 
 window.addEventListener("hashchange", () => {
     frames.updateCurrentStep();
