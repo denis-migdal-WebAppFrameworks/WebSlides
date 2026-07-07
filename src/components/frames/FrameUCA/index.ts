@@ -1,8 +1,7 @@
 import defineWebComponent from "MWL@2026:DOM/WebComponent/defineWebComponent";
-import { Fixed } from "MWL@2026:Reactive/Properties/Controllers";
+import { Fixed, Value } from "MWL@2026:Reactive/Properties/Controllers";
 import { WithProperties } from "MWL@2026:Reactive/Properties/createProperties";
-import {observe} from "MWL@2026:Reactive/Observers/observe";
-import deferredCallback from "MWL@2026:DOM/FrameScheduler/deferredCallback";
+import {renderProperties} from "MWL@2026:DOM/FrameScheduler/PropertyRenderer";
 
 export function setCaption(target: HTMLElement, content: ShadowRoot|HTMLElement) {
 
@@ -15,24 +14,65 @@ export function setCaption(target: HTMLElement, content: ShadowRoot|HTMLElement)
         }
 }
 
+//TODO: move out...
 class VisibilityController {
 
-    constructor(_target: ShadowRoot|HTMLElement) {
-        //TODO...
+    elements: HTMLElement[];
+    isVisible: ((idx: number)=>boolean)[];
+
+    readonly stepCount: number;
+
+    constructor(target: ShadowRoot|HTMLElement) {
+        this.elements = [...target.querySelectorAll<HTMLElement>('[onslide]')];
+        this.isVisible = new Array(this.elements.length);
+        
+        let maxStep = 1; // we start at 1...
+
+        for(let i = 0; i < this.elements.length; ++i) {
+            // extract parts.
+            const parts = this.elements[i].getAttribute("onslide")!
+                            .split(",")
+                            .map( p => p.split("-")
+                                        .map( s => s === "" ? null : +s ) );
+            
+            // compute max part.
+            for(let i = 0; i < parts.length; ++i) {
+                const part = parts[i];
+                if( part[0] !== null && maxStep < part[0] )
+                    maxStep = part[0];
+                if( part.length > 1 && part[1] !== null && maxStep < part[1])
+                    maxStep = part[1];
+            }
+
+            // create isVisible...
+            this.isVisible[i] = (idx: number) => {
+                for(let i = 0; i < parts.length; ++i) {
+                    const part = parts[i];
+                    if( part.length === 1 && idx === part[0])
+                        return true;
+
+                    if(    (part[0] === null || idx >= part[0])
+                        && (part[1] === null || idx <  part[1]))
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        this.stepCount = maxStep;
     }
 
-    get stepCount() {
-        return 1;
-    }
-
-    setStep() {
-
+    setStep(idx: number) {
+        for(let i = 0; i < this.elements.length; ++i) {
+            console.warn( this.isVisible[i](idx+1) );
+            this.elements[i].classList.toggle("onslide", this.isVisible[i](idx+1));
+        }
     }
 }
 
 class Controller extends WithProperties({
                                         stepCount: Fixed<number>(1),
-                                        stepIndex: Fixed<number>(0)
+                                        stepIndex: Value<number>(0)
                                     }) {
     constructor(stepCount: number) {
         super({stepCount});
@@ -48,93 +88,21 @@ const FrameUCA = defineWebComponent({
             ],
     initialize() {
 
-        const controller = new Controller(1);
-
-        // => create Controller here ???
-
         // required to be recognized as a slide...
         this.target.classList.add("ws-frame");
-
-        // extract things (?).
-        // lock property (?).
-        
         setCaption(this.target, this.root);
 
-        // only one prop to observe...
-        observe(controller, deferredCallback(this.renderer, () => {
+        const visibilityCtrler = new VisibilityController(this.target);
+        const controller       = new Controller(visibilityCtrler.stepCount);
 
-            // for all X => toggle...
-            //console.warn("idx", controller.properties.stepIndex);
-            //TODO: "onslide" animations.
-        }));
+        // only one property possible...
+        renderProperties(controller, this.renderer, () => {
+            console.warn("render");
+            visibilityCtrler.setStep(controller.properties.stepIndex);
+        });
 
         return controller;
     }
 });
 
 export default FrameUCA;
-
-
-/*
-const onslides = this.host.querySelectorAll<HTMLElement>("[onslide]");
-
-        //TODO: onslide.
-
-        let slide = this.host.getAttribute("slide");
-        if( slide === null) { // initial
-
-            let max = 0;
-            for(let onslide of onslides) {
-                const m = +onslide.getAttribute('onslide')!;
-                if( m > max)
-                    max = m;
-            }
-
-            if( max === 0)
-                return;
-
-            const dupl = Array.from({length: max}, (_, idx) => {
-
-                // cloneNode upgrade too soon.
-                this.host.setAttribute('slide', `${idx+1}`);
-                this.host.toggleAttribute("repeat", false); // ?
-
-                const elem = cloneNode(this, true);
-
-                // dirty h4ck
-                //(elem as any).scripts = (this.host as any).scripts;
-
-                return elem;
-            });
-
-            this.host.after( ...dupl );
-            this.host.setAttribute("slide", "0");
-        }
-
-        // TODO: improve onslide... (visibility hidden)
-        const slide_id = +( slide ?? "0" );
-        for(let onslide of onslides) {
-            const cond = onslide.getAttribute('onslide')!;
-
-            const show = cond.split(",").map( p => p.split("-")).some( (part) => {
-
-                if( part.length === 1)
-                    return slide_id === +part[0];
-
-                if( slide_id < +part[0] )
-                    return false;
-                
-                if( part[1] === "")
-                    return true;
-                
-                if( slide_id > +part[1] )
-                    return false;
-
-                return true;
-            });
-
-            if( ! show )
-                onslide.classList.add('invisible');
-                //  onslide.style.setProperty("display", "none");
-        }
-*/

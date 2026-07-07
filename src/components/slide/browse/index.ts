@@ -40,8 +40,8 @@ function setStepIndex(target: object, index: number) {
     
     target = getProperties(target);
     
-    if( "stepCount" in target) {
-        target.stepCount = index;
+    if( "stepIndex" in target) {
+        target.stepIndex = index;
         return;
     }
 
@@ -84,8 +84,6 @@ class Frames implements AnimationNode {
         let offset = 0;
         if( frameID !== 0)
             offset = this.framesEndSteps[frameID-1];
-
-        console.warn("step idx", frameID);
 
         setStepIndex(frame, step - offset);
 
