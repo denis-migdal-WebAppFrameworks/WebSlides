@@ -48,6 +48,8 @@ function setStepIndex(target: object, index: number) {
     return;
 }
 
+// some of the stuff should be external...
+// inherit to handle location.hash & other ?
 class Frames implements AnimationNode {
 
     readonly frames       : readonly HTMLElement[];
@@ -55,6 +57,8 @@ class Frames implements AnimationNode {
 
     protected _stepIndex: number = 0;
     readonly stepCount: number;
+
+    readonly SessionKey = "wsidx-" + location.origin + location.pathname;
 
     constructor(target: HTMLElement) {
         this.frames = [...target.querySelectorAll<HTMLElement>('.ws-frame')];
@@ -67,6 +71,25 @@ class Frames implements AnimationNode {
         }
 
         this.stepCount = cur;
+
+        const stepIdx = sessionStorage.getItem(this.SessionKey);
+
+        if( stepIdx !== null ) {
+            this.stepIndex = +stepIdx;
+            return;
+        }
+
+        // restore scroll immediately.
+        history.scrollRestoration = "manual";
+        const hash = location.hash.slice(1);
+        if( hash !== "") {
+            const target = document.getElementById(decodeURIComponent(hash))!;
+            frames.setStepAt(target);
+        }
+
+        window.addEventListener("hashchange", () => {
+            frames.updateCurrentStep();
+        });
     }
 
     get stepIndex() {
@@ -75,9 +98,9 @@ class Frames implements AnimationNode {
 
     set stepIndex(step: number) {
 
-        const frameID = this.framesEndSteps.findIndex( endStep => step < endStep);
+        sessionStorage.setItem(this.SessionKey, `${step}`);
 
-        console.warn(step, frameID);
+        const frameID = this.framesEndSteps.findIndex( endStep => step < endStep);
 
         const frame = this.frames[frameID];
 
@@ -91,6 +114,16 @@ class Frames implements AnimationNode {
         frame.scrollIntoView({behavior: "instant"});
 
         this._stepIndex = step;
+    }
+
+    setStepAt(target: HTMLElement) {
+        const frame = target.querySelector<HTMLElement>(".ws-frame")!;
+        let cur = this.frames.indexOf(frame);
+
+        if( cur !== 0 )
+            cur = this.framesEndSteps[cur-1];
+
+        this.stepIndex = cur;
     }
 
     updateCurrentStep() {
@@ -109,20 +142,6 @@ class Frames implements AnimationNode {
 }
 
 const frames = new Frames(document.body);
-
-// restore scroll immediately.
-history.scrollRestoration = "manual";
-const hash = location.hash.slice(1);
-if( hash !== "") {
-    document.getElementById(hash)
-            ?.scrollIntoView({ behavior: "instant" });
-
-    requestAnimationFrame( () => frames.updateCurrentStep() );
-}
-
-window.addEventListener("hashchange", () => {
-    frames.updateCurrentStep();
-});
 
 function getAction(ev: KeyboardEvent) {
 

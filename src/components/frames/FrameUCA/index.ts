@@ -64,7 +64,6 @@ class VisibilityController {
 
     setStep(idx: number) {
         for(let i = 0; i < this.elements.length; ++i) {
-            console.warn( this.isVisible[i](idx+1) );
             this.elements[i].classList.toggle("onslide", this.isVisible[i](idx+1));
         }
     }
@@ -97,7 +96,6 @@ const FrameUCA = defineWebComponent({
 
         // only one property possible...
         renderProperties(controller, this.renderer, () => {
-            console.warn("render");
             visibilityCtrler.setStep(controller.properties.stepIndex);
         });
 
