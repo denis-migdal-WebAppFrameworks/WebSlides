@@ -72,6 +72,11 @@ class Frames implements AnimationNode {
 
         this.stepCount = cur;
 
+        window.addEventListener("hashchange", () => {
+            // could be more robust...
+            frames.updateCurrentStep();
+        });
+
         const stepIdx = sessionStorage.getItem(this.SessionKey);
 
         if( stepIdx !== null ) {
@@ -86,10 +91,6 @@ class Frames implements AnimationNode {
             const target = document.getElementById(decodeURIComponent(hash))!;
             frames.setStepAt(target);
         }
-
-        window.addEventListener("hashchange", () => {
-            frames.updateCurrentStep();
-        });
     }
 
     get stepIndex() {
