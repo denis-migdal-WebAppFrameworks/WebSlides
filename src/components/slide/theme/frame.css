@@ -1,7 +1,7 @@
 .ws-frame {
     width: var(--slide_width);
     height: var(--slide_height);
-    overflow-y: scroll;
+    overflow: hidden; /* somehow we have an overflow in chromium. */
     /*background-color: blue;*/
     /*border: 1px solid black; /* red */
     box-sizing: border-box;
