@@ -1,8 +1,1 @@
-- animation API
-    - curState
-    - stateCount
-    - gotoState(X)
-    + helpers
-        - next
-        - prev
-        - reset
+- #X navigation => ne pas utiliser l'attribut id=X => le gérer à la main...

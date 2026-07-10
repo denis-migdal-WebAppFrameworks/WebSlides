@@ -72,6 +72,8 @@ class Frames implements AnimationNode {
 
         this.stepCount = cur;
 
+        // restore scroll immediately.
+        history.scrollRestoration = "manual";
         window.addEventListener("hashchange", () => {
             // could be more robust...
             frames.updateCurrentStep();
@@ -79,13 +81,12 @@ class Frames implements AnimationNode {
 
         const stepIdx = sessionStorage.getItem(this.SessionKey);
 
+        //TODO: #id must NOT be id= else browser cause issues...
         if( stepIdx !== null ) {
             this.stepIndex = +stepIdx;
             return;
         }
 
-        // restore scroll immediately.
-        history.scrollRestoration = "manual";
         const hash = location.hash.slice(1);
         if( hash !== "") {
             const target = document.getElementById(decodeURIComponent(hash))!;
@@ -98,6 +99,8 @@ class Frames implements AnimationNode {
     }
 
     set stepIndex(step: number) {
+
+        console.error("set", step);
 
         sessionStorage.setItem(this.SessionKey, `${step}`);
 
