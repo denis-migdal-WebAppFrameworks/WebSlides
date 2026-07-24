@@ -1,7 +1,6 @@
-import defineWebComponent from "MWL@2026:DOM/WebComponent/defineWebComponent";
-import { Fixed, Value } from "MWL@2026:Reactive/Properties/Controllers";
-import { WithProperties } from "MWL@2026:Reactive/Properties/createProperties";
-import {deferredObserve} from "MWL@2026:DOM/FrameScheduler/defer/deferredObserve";
+import {createPropertiesDeferredRenderer, defineWebComponent} from "MWL@2026:exports/DOM/WebComponent";
+import { WithProperties }   from "MWL@2026:exports/Reactive/Properties";
+import { Fixed, Value }     from "MWL@2026:exports/Reactive/Properties/controllers";
 
 export function setCaption(target: HTMLElement, content: ShadowRoot|HTMLElement) {
 
@@ -94,8 +93,11 @@ const FrameUCA = defineWebComponent({
         const visibilityCtrler = new VisibilityController(this.target);
         const controller       = new Controller(visibilityCtrler.stepCount);
 
-        // only one property possible...
-        deferredObserve(controller, this.renderer, () => {
+        // not optimal, but more generic.
+        const renderer = createPropertiesDeferredRenderer(controller,
+                                                          this.renderer);
+
+        renderer.bind("stepIndex", () => {
             visibilityCtrler.setStep(controller.properties.stepIndex);
         });
 

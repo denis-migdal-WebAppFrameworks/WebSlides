@@ -1,4 +1,4 @@
-import defineWebComponent from "MWL@2026:DOM/WebComponent/defineWebComponent";
+import {defineWebComponent} from "MWL@2026:exports/DOM/WebComponent";
 
 const FrameUCATitle = defineWebComponent({
     name   : "frame-uca-title",
