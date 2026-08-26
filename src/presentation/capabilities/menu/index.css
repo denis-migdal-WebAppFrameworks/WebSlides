@@ -1,4 +1,4 @@
-@import "MWL@2026/components/page/menu";
+@import "MWL@2026/presentation/capabilities/menu";
 
 body {
     margin-top: 0 !important; /* by default menu set it ? */

@@ -1,9 +1,9 @@
 import { ReactiveCompositeAnimationNode } from "WebSlides@2026/models/ReactiveCompositeAnimationNode";
 import { initKeyboardNavigation } from "./keyboard";
 import { ReactiveAnimationNode } from "WebSlides@2026/models/ReactiveAnimationNode";
-import { Widget } from "MWL@2026/core/DOM/Widget";
+import { Widget } from "MWL@2026/exports/Widget";
 import { listenProperty } from "MWL@2026/core/Reactive/PropertySystem/Properties/PropertiesProvider";
-import { frameEffect } from "MWL@2026/core/DOM/FrameScheduler/frameEffect";
+import { frameEffect } from "MWL@2026/exports/browser/scheduler";
 import { AnimationNode } from "WebSlides@2026/models/AnimationNode";
 
 const ANIMATION_NODE = Symbol();

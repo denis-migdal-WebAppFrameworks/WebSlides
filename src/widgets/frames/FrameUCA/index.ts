@@ -1,6 +1,6 @@
-import { View, defineWidget } from "MWL@2026/exports/DOM/Widget";
-import { listen } from "MWL@2026/exports/Reactive/Events";
-import { frameEffect } from "MWL@2026/core/DOM/FrameScheduler/frameEffect";
+import { View, defineWidget } from "MWL@2026/exports/Widget";
+import { listen } from "MWL@2026/exports/Reactive/Observable";
+import { frameEffect } from "MWL@2026/exports/browser/scheduler";
 import { ReactiveAnimationNode } from "WebSlides@2026/models/ReactiveAnimationNode";
 import { VisibilityController } from "WebSlides@2026/presentation/navigator/VisibilityController";
 import { initSlide } from "../core";
