@@ -1,3 +1,6 @@
+@import "MWL@2026/presentation/styles/blocks";
+@import "MWL@2026/presentation/styles/theme/utilities";
+
 @import "WebSlides@2026/presentation/styles/";
 @import "WebSlides@2026/presentation/capabilities/";
 @import "WebSlides@2026/presentation/navigator/";
