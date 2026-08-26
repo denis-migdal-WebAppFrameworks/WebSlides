@@ -1,11 +1,11 @@
 :host {
     
     & > .title {
-        & > [data-wcid="title"] {
+        & > [w-id="title"] {
             color: var(--uca_green);
             text-align: center;
         }
-        & > [data-wcid="subtitle"] {
+        & > [w-id="subtitle"] {
             color: var(--uca_green);
             text-align: center;
             font-style: italic;
@@ -13,7 +13,7 @@
         }
     }
 
-    & [data-wcid="date"] {
+    & [w-id="date"] {
         font-size: small;
         font-style: italic;
     }
@@ -22,7 +22,7 @@
         text-align: center;
         color: var(--uca_gray);
 
-        & > [data-wcid="mail"] {
+        & > [w-id="mail"] {
             font-style: italic;
         }
     }
