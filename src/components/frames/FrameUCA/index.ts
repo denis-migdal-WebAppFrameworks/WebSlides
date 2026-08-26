@@ -1,6 +1,6 @@
-import {createPropertiesDeferredRenderer, defineWebComponent} from "MWL@2026:exports/DOM/WebComponent";
-import { WithProperties }   from "MWL@2026:exports/Reactive/Properties";
-import { Fixed, Value }     from "MWL@2026:exports/Reactive/Properties/controllers";
+import {createPropertiesDeferredRenderer, defineWebComponent} from "MWL@2026/exports/DOM/WebComponent";
+import { WithProperties }   from "MWL@2026/exports/Reactive/Properties";
+import { Fixed, Value }     from "MWL@2026/exports/Reactive/Properties/controllers";
 
 export function setCaption(target: HTMLElement, content: ShadowRoot|HTMLElement) {
 
