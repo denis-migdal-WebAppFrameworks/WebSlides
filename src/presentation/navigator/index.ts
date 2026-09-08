@@ -34,7 +34,11 @@ function getAnimationsElements(target: HTMLElement) {
 
 function isAnimationNode(element: AnimationElement): element is Widget<ReactiveAnimationNode, "properties"> {
 
-    return "stepIndex" in element && "stepCount" in element;
+    if( ! ("properties" in element) )
+        return false;
+
+    const props = element.properties;
+    return "stepIndex" in props && "stepCount" in props;
 }
 
 function getAnimationNode(element: AnimationElement & {[ANIMATION_NODE]?: AnimationNode}) {

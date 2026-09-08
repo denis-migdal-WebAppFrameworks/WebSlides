@@ -1,4 +1,4 @@
-import { View, defineWidget } from "MWL@2026/exports/Widget";
+import { View, LazyCoordinator, defineWidget } from "MWL@2026/exports/Widget";
 import { listen } from "MWL@2026/exports/Reactive/Observable";
 import { frameEffect } from "MWL@2026/exports/browser/scheduler";
 import { ReactiveAnimationNode } from "WebSlides@2026/models/ReactiveAnimationNode";
@@ -7,6 +7,7 @@ import { initSlide } from "../core";
 
 const FrameUCA = defineWidget(
     "frame-uca",
+    LazyCoordinator(ReactiveAnimationNode),
     View({
 
         content: __LOAD_FILE__("./index.html"),
@@ -14,10 +15,10 @@ const FrameUCA = defineWidget(
                     __LOAD_FILE__("../FrameUCAPlain/index.css"),
                     __LOAD_FILE__("./index.css")
                 ],
-        setup() {
+        setup(ctrler) {
             initSlide(this.target);
             setCaption(this.target, this.root);
-            initializeAnimations(this.target);
+            initializeAnimations(this.target, ctrler);
         }
     })
 );
@@ -26,10 +27,13 @@ type FrameUCA = InstanceType<typeof FrameUCA>;
 export {FrameUCA};
 
 // ad hoc tool.
-function initializeAnimations(target: ShadowRoot|HTMLElement) {
+function initializeAnimations(
+                                target: ShadowRoot|HTMLElement,
+                                ctlerFactory: (args: {stepCount: number}) => ReactiveAnimationNode
+) {
 
     const visibilityCtrler = new VisibilityController(target);
-    const controller       = new ReactiveAnimationNode(visibilityCtrler.stepCount);
+    const controller       = ctlerFactory({stepCount: visibilityCtrler.stepCount});
 
     listen(controller, frameEffect(() => {
         visibilityCtrler.setStep(controller.stepIndex);

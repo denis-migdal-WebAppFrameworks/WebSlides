@@ -1,32 +1,20 @@
 @font-face {
 	font-family: 'Computer Modern Sans';
-	src: url('/assets/font/cmunss.eot');
-	src: url('/assets/font/cmunss.eot?#iefix') format('embedded-opentype'),
-		 url('/assets/font/cmunss.woff') format('woff'),
-		 url('/assets/font/cmunss.ttf') format('truetype'),
-		 url('/assets/font/cmunss.svg#cmunss') format('svg');
+	src: url('/assets/font/CMUSansSerif.woff2') format('woff2');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Computer Modern Sans';
-	src: url('/assets/font/cmunsx.eot');
-	src: url('/assets/font/cmunsx.eot?#iefix') format('embedded-opentype'),
-		 url('/assets/font/cmunsx.woff') format('woff'),
-		 url('/assets/font/cmunsx.ttf') format('truetype'),
-		 url('/assets/font/cmunsx.svg#cmunsx') format('svg');
+	src: url('/assets/font/CMUSansSerif-Bold.woff2') format('woff2');
 	font-weight: bold;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Computer Modern Sans';
-	src: url('/assets/font/cmunsi.eot');
-	src: url('/assets/font/cmunsi.eot?#iefix') format('embedded-opentype'),
-		 url('/assets/font/cmunsi.woff') format('woff'),
-		 url('/assets/font/cmunsi.ttf') format('truetype'),
-		 url('/assets/font/cmunsi.svg#cmunsi') format('svg');
+	src: url('/assets/font/CMUSansSerif-Oblique.woff2') format('woff2');
 	font-weight: normal;
 	font-style: italic;
 }
@@ -34,11 +22,7 @@
 
 @font-face {
 	font-family: 'Computer Modern Sans';
-	src: url('/assets/font/cmunso.eot');
-	src: url('/assets/font/cmunso.eot?#iefix') format('embedded-opentype'),
-		 url('/assets/font/cmunso.woff') format('woff'),
-		 url('/assets/font/cmunso.ttf') format('truetype'),
-		 url('/assets/font/cmunso.svg#cmunso') format('svg');
+	src: url('/assets/font/CMUSansSerif-BoldOblique.woff2') format('woff2');
 	font-weight: bold;
 	font-style: italic;
 }

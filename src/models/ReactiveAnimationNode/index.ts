@@ -6,9 +6,4 @@ export class ReactiveAnimationNode extends WithProperties({
                                         stepIndex: Value(0),
                                         stepCount: Fixed(1),
                                     })
-                                    implements AnimationNode {
-
-    constructor(stepCount: number) {
-        super({stepCount});
-    }
-}
+                                    implements AnimationNode {}
