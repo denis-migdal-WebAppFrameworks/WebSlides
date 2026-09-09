@@ -1,3 +1,5 @@
+@import "MWL@2026/presentation/styles/font.css";
+
 @font-face {
 	font-family: 'Computer Modern Sans';
 	src: url('/assets/font/CMUSansSerif.woff2') format('woff2');
