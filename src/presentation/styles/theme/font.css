@@ -19,7 +19,6 @@
 	font-style: italic;
 }
 
-
 @font-face {
 	font-family: 'Computer Modern Sans';
 	src: url('/assets/font/CMUSansSerif-BoldOblique.woff2') format('woff2');
@@ -27,12 +26,7 @@
 	font-style: italic;
 }
 
-@font-face {
-	font-family: 'NotoColorEmoji.ttf';
-	src: local("Noto Color Emoji"),
-	     src("/assets/font/NotoColorEmoji.ttf") format('ttf')
-}
-
 main {
-    font-family: "Computer Modern Sans", "Noto Sans Math", "FreeSerif", "Noto Color Emoji";
+	/* Symbols is defined by MWL */
+    font-family: "Symbols", "Computer Modern Sans";
 }
