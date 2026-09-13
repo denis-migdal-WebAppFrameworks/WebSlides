@@ -1,6 +1,6 @@
 :host {
     
-    & > .title {
+    & > .title-area {
         & > #title {
             color: var(--uca_green);
             text-align: center;
