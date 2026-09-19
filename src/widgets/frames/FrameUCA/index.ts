@@ -1,5 +1,5 @@
 import { View, LazyCoordinator, defineWidget } from "MWL@2026/exports/Widget";
-import { listen } from "MWL@2026/exports/Reactive/Observable";
+import { listen, observe } from "MWL@2026/exports/Reactive/Observable";
 import { frameEffect } from "MWL@2026/exports/browser/scheduler";
 import { ReactiveAnimationNode } from "WebSlides@2026/models/ReactiveAnimationNode";
 import { VisibilityController } from "WebSlides@2026/presentation/navigator/VisibilityController";
@@ -35,7 +35,7 @@ function initializeAnimations(
     const visibilityCtrler = new VisibilityController(target);
     const controller       = ctlerFactory({stepCount: visibilityCtrler.stepCount});
 
-    listen(controller, frameEffect(() => {
+    observe(controller, frameEffect(() => {
         visibilityCtrler.setStep(controller.stepIndex);
     }));
 }

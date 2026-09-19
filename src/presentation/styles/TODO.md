@@ -10,12 +10,3 @@
         grid-area: 1 / 1;
     }
 }
-
-li[mark="🕮"]::marker {
-    content: "🕮 ";
-    color: unset;
-}
-li[mark="💡"]::marker {
-    content: "💡 ";
-    color: unset;
-}
