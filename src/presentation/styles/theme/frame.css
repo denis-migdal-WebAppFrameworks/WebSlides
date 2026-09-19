@@ -15,7 +15,7 @@
         left: 0;
         top : 0;
 
-        background-image: url('/assets/img/uca/background.png');
+        background-image: url('/@assets/img/uca/background.png');
         background-size: cover;
 
         z-index: -1;
