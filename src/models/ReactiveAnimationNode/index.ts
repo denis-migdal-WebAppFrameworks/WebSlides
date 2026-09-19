@@ -1,5 +1,5 @@
-import { WithProperties } from "MWL@2026/exports/Reactive/PropertySystem";
-import { Fixed, Value } from "MWL@2026/exports/Reactive/PropertySystem/controllers";
+import { WithProperties } from "MWL@2026/@exports/Reactive/PropertySystem";
+import { Fixed, Value } from "MWL@2026/@exports/Reactive/PropertySystem/controllers";
 import { AnimationNode } from "../AnimationNode";
 
 export class ReactiveAnimationNode extends WithProperties({

@@ -1,10 +1,10 @@
-import { WithProperties } from "MWL@2026/exports/Reactive/PropertySystem";
-import { Fixed, Value } from "MWL@2026/exports/Reactive/PropertySystem/controllers";
+import { WithProperties } from "MWL@2026/@exports/Reactive/PropertySystem";
+import { Fixed, Value } from "MWL@2026/@exports/Reactive/PropertySystem/controllers";
 import { ReactiveAnimationNode } from "../ReactiveAnimationNode";
 import { AnimationNode } from "../AnimationNode";
 import { forward } from "MWL@2026/core/Reactive/PropertySystem/Property/sync/forward";
 import { getProperty } from "MWL@2026/core/Reactive/PropertySystem/Properties/PropertiesProvider";
-import { listen } from "MWL@2026/exports/Reactive/Observable";
+import { listen } from "MWL@2026/@exports/Reactive/Observable";
 
 
 export class ReactiveCompositeAnimationNode extends WithProperties({

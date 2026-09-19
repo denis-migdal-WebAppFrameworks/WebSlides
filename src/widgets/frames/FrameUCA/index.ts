@@ -1,9 +1,9 @@
-import { View, LazyCoordinator, defineWidget } from "MWL@2026/exports/Widget";
-import { observe } from "MWL@2026/exports/Reactive/Observable";
-import { frameEffect } from "MWL@2026/exports/browser/scheduler";
+import { View, LazyCoordinator, defineWidget } from "MWL@2026/@exports/Widget";
+import { observe } from "MWL@2026/@exports/Reactive/Observable";
+import { frameEffect } from "MWL@2026/@exports/browser/scheduler";
 import { ReactiveAnimationNode } from "WebSlides@2026/models/ReactiveAnimationNode";
 import { VisibilityController } from "WebSlides@2026/presentation/navigator/VisibilityController";
-import { initSlide } from "../core";
+import { initSlide } from "../@core";
 
 const FrameUCA = defineWidget(
     "frame-uca",
