@@ -35,7 +35,7 @@ export class VisibilityController {
                         return true;
 
                     if(    (part[0] === null || idx >= part[0])
-                        && (part[1] === null || idx <  part[1]))
+                        && (part[1] === null || idx <= part[1]))
                         return true;
                 }
                 return false;
