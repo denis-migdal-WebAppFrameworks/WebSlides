@@ -6,14 +6,14 @@ export class VisibilityController {
     readonly stepCount: number;
 
     constructor(target: ShadowRoot|HTMLElement) {
-        this.elements = [...target.querySelectorAll<HTMLElement>('[onslide]')];
+        this.elements = [...target.querySelectorAll<HTMLElement>('[slide]')];
         this.isVisible = new Array(this.elements.length);
         
         let maxStep = 1; // we start at 1...
 
         for(let i = 0; i < this.elements.length; ++i) {
             // extract parts.
-            const parts = this.elements[i].getAttribute("onslide")!
+            const parts = this.elements[i].getAttribute("slide")!
                             .split(",")
                             .map( p => p.split("-")
                                         .map( s => s === "" ? null : +s ) );
