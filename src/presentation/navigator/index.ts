@@ -27,17 +27,17 @@ animationRoot.stepIndex = stepHisto ?? stepLocal ?? 0;
 
 type AnimationRootNode = ReactiveCompositeAnimationNode;
 
-type AnimationElement = HTMLElement | Widget<ReactiveAnimationNode, "properties">;
+type AnimationElement = HTMLElement | Widget<ReactiveAnimationNode>;
 function getAnimationsElements(target: HTMLElement) {
    return [...target.querySelectorAll<AnimationElement>('.ws-frame')];
 }
 
-function isAnimationNode(element: AnimationElement): element is Widget<ReactiveAnimationNode, "properties"> {
+function isAnimationNode(element: AnimationElement): element is Widget<ReactiveAnimationNode> {
 
-    if( ! ("properties" in element) )
+    if( ! ("subject" in element) )
         return false;
 
-    const props = element.properties;
+    const props = element.subject.properties;
     return "stepIndex" in props && "stepCount" in props;
 }
 
@@ -47,7 +47,7 @@ function getAnimationNode(element: AnimationElement & {[ANIMATION_NODE]?: Animat
         return element[ANIMATION_NODE];
 
     if( isAnimationNode(element) )
-        return element.properties;
+        return element.subject.properties;
 
     // object needs to be unique.
     return element[ANIMATION_NODE] = {
