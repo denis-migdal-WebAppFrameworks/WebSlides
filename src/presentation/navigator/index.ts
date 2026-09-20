@@ -37,7 +37,7 @@ function isAnimationNode(element: AnimationElement): element is Widget<ReactiveA
     if( ! ("subject" in element) )
         return false;
 
-    const props = element.subject.properties;
+    const props = (element.subject as any).properties;
     return "stepIndex" in props && "stepCount" in props;
 }
 

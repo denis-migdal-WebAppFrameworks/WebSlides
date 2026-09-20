@@ -4,7 +4,7 @@ import { ReactiveAnimationNode } from "../ReactiveAnimationNode";
 import { AnimationNode } from "../AnimationNode";
 import { forward } from "MWL@2026/core/Reactive/PropertySystem/Property/sync/forward";
 import { getProperty } from "MWL@2026/core/Reactive/PropertySystem/Properties/PropertiesProvider";
-import { listen } from "MWL@2026/@exports/Reactive/Observable";
+import { listen } from "MWL@2026/@exports/Observable";
 
 
 export class ReactiveCompositeAnimationNode extends WithProperties({
