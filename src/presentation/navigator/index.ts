@@ -34,10 +34,10 @@ function getAnimationsElements(target: HTMLElement) {
 
 function isAnimationNode(element: AnimationElement): element is Widget<ReactiveAnimationNode> {
 
-    if( ! ("subject" in element) )
+    if( ! ("subject" in element) || ! ("properties" in element.subject) )
         return false;
 
-    const props = (element.subject as any).properties;
+    const props = element.subject.properties;
     return "stepIndex" in props && "stepCount" in props;
 }
 
