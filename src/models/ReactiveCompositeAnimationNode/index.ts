@@ -4,8 +4,7 @@ import { ReactiveAnimationNode } from "../ReactiveAnimationNode";
 import { AnimationNode } from "../AnimationNode";
 import { forward } from "MWL@2026/core/Reactive/PropertySystem/Property/sync/forward";
 import { getProperty } from "MWL@2026/core/Reactive/PropertySystem/Properties/PropertiesProvider";
-import { listen } from "MWL@2026/@exports/Observable";
-
+import { listen } from "MWL@2026/modules/Observable";
 
 export class ReactiveCompositeAnimationNode extends WithProperties({
                                     // we use -1 for force the initial trigger.
