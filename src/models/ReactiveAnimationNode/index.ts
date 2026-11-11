@@ -1,8 +1,8 @@
-import { WithProperties } from "MWL@2026/@exports/Reactive/PropertySystem";
-import { Fixed, Value } from "MWL@2026/@exports/Reactive/PropertySystem/controllers";
+import { Properties } from "MWL@2026/modules/Reactive/Collections/Properties";
+import { Fixed, Value } from "MWL@2026/modules/Reactive/Property";
 import { AnimationNode } from "../AnimationNode";
 
-export class ReactiveAnimationNode extends WithProperties({
+export class ReactiveAnimationNode extends Properties({
                                         stepIndex: Value(0),
                                         stepCount: Fixed(1),
                                     })

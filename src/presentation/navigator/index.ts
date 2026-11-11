@@ -2,9 +2,10 @@ import { ReactiveCompositeAnimationNode } from "WebSlides@2026/models/ReactiveCo
 import { initKeyboardNavigation } from "./keyboard";
 import { ReactiveAnimationNode } from "WebSlides@2026/models/ReactiveAnimationNode";
 import { Widget } from "MWL@2026/@exports/Widget";
-import { listenProperty } from "MWL@2026/core/Reactive/PropertySystem/Properties/PropertiesProvider";
 import { frameEffect } from "MWL@2026/@exports/browser/scheduler";
 import { AnimationNode } from "WebSlides@2026/models/AnimationNode";
+import { listen } from "MWL@2026/modules/Observable";
+import { getProperty } from "MWL@2026/modules/Reactive/Property";
 
 const ANIMATION_NODE = Symbol();
 
@@ -34,10 +35,10 @@ function getAnimationsElements(target: HTMLElement) {
 
 function isAnimationNode(element: AnimationElement): element is Widget<ReactiveAnimationNode> {
 
-    if( ! ("subject" in element) || ! ("properties" in element.subject) )
+    if( ! ("subject" in element) )
         return false;
 
-    const props = element.subject.properties;
+    const props = element.subject;
     return "stepIndex" in props && "stepCount" in props;
 }
 
@@ -47,7 +48,7 @@ function getAnimationNode(element: AnimationElement & {[ANIMATION_NODE]?: Animat
         return element[ANIMATION_NODE];
 
     if( isAnimationNode(element) )
-        return element.subject.properties;
+        return element.subject;
 
     // object needs to be unique.
     return element[ANIMATION_NODE] = {
@@ -63,7 +64,7 @@ function initializeScroll(
                         children: readonly HTMLElement[]
                     ) {
     // scroll to
-    listenProperty(root, "childIndex", () => {
+    listen( getProperty(root, "childIndex"), () => {
         children[root.childIndex].scrollIntoView({behavior: "instant"});
     });
 
@@ -84,7 +85,7 @@ function initializePersistance(root: AnimationRootNode) {
 
     const SessionKey = "wsidx-" + location.origin + location.pathname;
 
-    listenProperty(root, "stepIndex", frameEffect(() => {
+    listen( getProperty(root, "stepIndex"), frameEffect(() => {
         sessionStorage.setItem(SessionKey, `${root.stepIndex}`);
     }));
 

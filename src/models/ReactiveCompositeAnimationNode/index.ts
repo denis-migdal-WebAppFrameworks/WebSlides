@@ -1,12 +1,12 @@
-import { WithProperties } from "MWL@2026/@exports/Reactive/PropertySystem";
-import { Fixed, Value } from "MWL@2026/@exports/Reactive/PropertySystem/controllers";
+import { Properties } from "MWL@2026/modules/Reactive/Collections/Properties";
+import { Fixed, Value } from "MWL@2026/modules/Reactive/Property";
 import { ReactiveAnimationNode } from "../ReactiveAnimationNode";
 import { AnimationNode } from "../AnimationNode";
-import { forward } from "MWL@2026/core/Reactive/PropertySystem/Property/sync/forward";
-import { getProperty } from "MWL@2026/core/Reactive/PropertySystem/Properties/PropertiesProvider";
+import { getProperty } from "MWL@2026/modules/Reactive/Property";
 import { listen } from "MWL@2026/modules/Observable";
+import { addLink } from "MWL@2026/modules/Reactive/Reaction";
 
-export class ReactiveCompositeAnimationNode extends WithProperties({
+export class ReactiveCompositeAnimationNode extends Properties({
                                     // we use -1 for force the initial trigger.
                                     stepIndex : Value(-1),
                                     childIndex: Value(-1),
@@ -41,12 +41,20 @@ export class ReactiveCompositeAnimationNode extends WithProperties({
             child.stepIndex = this.stepIndex - offset;
         });
 
-        forward( getProperty(this, "stepIndex"),
-                 getProperty(this, "childIndex"),
-                 (idx) => {
-                    return endSteps.findIndex( endStep => idx < endStep);
-                 }
-            );
+        // => forward prevents loop ?
+        const stepIdx  = getProperty(this, "stepIndex");
+        const childIdx = getProperty(this, "childIndex");
+        //TODO: cache...
+        const computed = {
+            get() {
+                const idx = stepIdx.get();
+                return endSteps.findIndex( endStep => idx < endStep);
+            },
+
+            isResolved: false
+        }
+        addLink( stepIdx, childIdx,
+                () => childIdx._setSource(computed) );
     }
 
     firstStepIndex(child: AnimationNode) {
