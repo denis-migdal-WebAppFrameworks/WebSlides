@@ -1,4 +1,4 @@
-import { defineWidget, View } from "MWL@2026/@exports/Widget";
+import { defineWidget, View } from "MWL@2026/modules/Widgets";
 import { initSlide } from "../@core";
 
 const FrameUCATitle = defineWidget(

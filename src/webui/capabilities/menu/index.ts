@@ -1,4 +1,4 @@
-import {getTitlePrefix, PageMenuNode, searchCurPageHeader, generateMenuHTML, menu_page} from "MWL@2026/presentation/capabilities/menu";
+import {getTitlePrefix, PageMenuNode, searchCurPageHeader, generateMenuHTML, menu_page} from "MWL@2026/webui/capabilities/menu";
 
 import { setHeightOffset } from "../scale"
 setHeightOffset(38); // need to update CSS too... (38/2)

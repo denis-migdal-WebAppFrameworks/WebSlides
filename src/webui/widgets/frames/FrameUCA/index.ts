@@ -1,7 +1,7 @@
-import { View, LazyCoordinator, defineWidget } from "MWL@2026/@exports/Widget";
-import { frameEffect } from "MWL@2026/@exports/browser/scheduler";
+import { View, LazyCoordinator, defineWidget } from "MWL@2026/modules/Widgets";
+import { frameEffect } from "MWL@2026/modules/@platform/Scheduler";
 import { ReactiveAnimationNode } from "WebSlides@2026/models/ReactiveAnimationNode";
-import { VisibilityController } from "WebSlides@2026/presentation/navigator/VisibilityController";
+import { VisibilityController } from "WebSlides@2026/webui/capabilities/navigator/VisibilityController";
 import { initSlide } from "../@core";
 import { observe } from "MWL@2026/modules/Observable";
 

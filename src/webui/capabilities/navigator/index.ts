@@ -1,8 +1,8 @@
 import { ReactiveCompositeAnimationNode } from "WebSlides@2026/models/ReactiveCompositeAnimationNode";
 import { initKeyboardNavigation } from "./keyboard";
 import { ReactiveAnimationNode } from "WebSlides@2026/models/ReactiveAnimationNode";
-import { Widget } from "MWL@2026/@exports/Widget";
-import { frameEffect } from "MWL@2026/@exports/browser/scheduler";
+import { Widget } from "MWL@2026/modules/Widgets";
+import { frameEffect } from "MWL@2026/modules/@platform/Scheduler";
 import { AnimationNode } from "WebSlides@2026/models/AnimationNode";
 import { listen } from "MWL@2026/modules/Observable";
 import { getProperty } from "MWL@2026/modules/Reactive/Property";
